@@ -12,33 +12,12 @@ import {
 import { Delete, MoneyOff } from "@material-ui/icons";
 
 import useStyles from "./styles";
+import { MoneyManagerContext } from "../../../context/context";
 
 const List = () => {
     const classes = useStyles();
-    
-    const transactions = [
-      {
-        id: 1,
-        type: "Income",
-        category: "Salary",
-        amount: 50,
-        date: new Date(),
-      },
-      {
-        id: 2,
-        type: "Expense",
-        category: "Food",
-        amount: 100,
-        date: new Date(),
-      },
-      {
-        id: 3,
-        type: "Income",
-        category: "Business",
-        amount: 500,
-        date: new Date(),
-      },
-    ];
+  const { transactions, deleteTransaction } = useContext(MoneyManagerContext);
+  
   return (
     <MUIList dense={false} className={classes.list}>
       {transactions.map((transaction) => (
@@ -69,6 +48,7 @@ const List = () => {
               <IconButton
                 edge='end'
                 aria-label='delete'
+                onClick={()=>deleteTransaction(transaction.id)}
               >
                 <Delete />
               </IconButton>
