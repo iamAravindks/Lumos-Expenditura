@@ -13,7 +13,6 @@ export const Provider = ({ children }) => {
   const addTransaction = (transaction) =>
     dispatch({ type: ADD_TRANSACTION, payload: transaction });
 
-    console.log(transactions)
   return (
     <MoneyManagerContext.Provider
       value={{ deleteTransaction, addTransaction, transactions }}
