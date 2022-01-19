@@ -26,5 +26,23 @@ export default makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(2),
     },
+    [theme.breakpoints.up("sm")]: {
+      minHeight:"100vh"
+    }
+  },
+  Income: {
+    [theme.breakpoints.down("xs")]: {
+      order: 2,
+    },
+  },
+  Form: {
+    [theme.breakpoints.down("xs")]: {
+      order: 1,
+    },
+  },
+  Expense: {
+    [theme.breakpoints.down("xs")]: {
+      order: 3,
+    },
   },
 }));
