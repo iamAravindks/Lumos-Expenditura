@@ -1,0 +1,33 @@
+{
+  "name": "expenditura",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "npx nodemon --watch backend --exec babel-node backend/server.js",
+    "build": "rm -rf dist && babel backend -d dist ",
+    "data:import": "npm run build && node dist/seeder",
+    "data:destroy": "npm run build && node dist/seeder -d"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.8",
+    "colors": "^1.4.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.7"
+  }
+
+}
