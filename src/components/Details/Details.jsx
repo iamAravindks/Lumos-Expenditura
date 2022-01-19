@@ -6,7 +6,6 @@ import useTransaction from "../../hooks/useTransactions";
 import useStyles from "./styles";
 const Details = ({ title }) => {
   const { totalAmount, chartData } = useTransaction(title);
-  console.log(chartData);
   const classes = useStyles();
   return (
     <Card className={title === "Income" ? classes.income : classes.expense}>
