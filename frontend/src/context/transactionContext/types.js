@@ -1,3 +1,7 @@
+// @transaction
 export const ADD_TRANSACTION = "ADD_TRANSACTION";
 export const DELETE_TRANSACTION = "DELETE_TRANSACTION";
 export const CLEAR_TRANSACTIONS = "CLEAR_TRANSACTIONS";
+
+
+

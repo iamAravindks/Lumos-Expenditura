@@ -7,7 +7,7 @@ import {
   CardHeader,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { MoneyManagerContext } from "../../context/context";
+import { MoneyManagerContext } from "../../context/transactionContext/context";
 import Form from "./Form/Form";
 import List from "./List/List";
 import useStyles from "./styles";

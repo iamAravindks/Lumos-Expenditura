@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { MoneyManagerContext } from "../context/context"
+import { MoneyManagerContext } from "../context/transactionContext/context"
 import { expenseCategories, incomeCategories, resetCategories } from '../constants/categories'
 
 const useTransactions = (title) =>

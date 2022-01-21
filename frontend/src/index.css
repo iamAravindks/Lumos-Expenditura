@@ -1,9 +1,9 @@
 #root, body, html {
-    /* min-height: 100%; */
+    min-height: 100vh;
     margin: 0;
 }
 
-body {
+.home {
     background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(./assets/money.jpg);
     background-size: contain;
     background-repeat: no-repeat;

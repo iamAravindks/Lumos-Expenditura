@@ -12,7 +12,7 @@ import {
 import { Delete, MoneyOff } from "@material-ui/icons";
 
 import useStyles from "./styles";
-import { MoneyManagerContext } from "../../../context/context";
+import { MoneyManagerContext } from "../../../context/transactionContext/context";
 
 const List = () => {
     const classes = useStyles();

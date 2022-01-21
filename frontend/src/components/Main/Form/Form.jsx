@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { v4 as uuidv4 } from "uuid";
-import { MoneyManagerContext } from "../../../context/context";
+import { MoneyManagerContext } from "../../../context/transactionContext/context";
 import useStyles from "./styles";
 import {
   expenseCategories,
