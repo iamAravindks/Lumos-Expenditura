@@ -6,6 +6,9 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       minHeight: "40vh",
     },
+    [theme.breakpoints.down("md")]: {
+      minHeight: "40vh",
+    },
     // backgroundColor: "lightblue",
   },
   HeroTitle: {
@@ -20,10 +23,14 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       minHeight: "10vh",
       // backgroundColor: "lightgreen",
-      marginTop:theme.spacing(0)
+      marginTop: theme.spacing(0),
+    },
+    [theme.breakpoints.down("md")]: {
+      minHeight: "13vh",
     },
   },
   HeroImgContainer: {
+    minHeight:"40vh",
     display: "flex",
     alignItems: "end",
     justifyContent: "center",
@@ -31,7 +38,10 @@ export default makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     [theme.breakpoints.down("sm")]: {
       maxHeight: "20vh",
-      alignItems:"start"
+      alignItems: "start",
+    },
+    [theme.breakpoints.down("md")]: {
+      minHeight: "26vh",
     },
   },
   HeroImg: {
@@ -40,6 +50,7 @@ export default makeStyles((theme) => ({
       width: "200px",
       height: "200px",
     },
+
     // backgroundColor: "lightgreen",
   },
   TextWhite: {
@@ -54,11 +65,14 @@ color: "#fff" ,
   [theme.breakpoints.down("md")]: {
     fontSize: "1.7rem",
   },
+  [theme.breakpoints.down("md")]: {
+      fontSize:"4rem"
+    }
 };
 theme.typography.subtitle1 = {
   color: "#fff",
   [theme.breakpoints.down("md")]: {
-    fontSize: ".7rem",
+    fontSize: "1.8rem",
     marginTop: "5px",
   },
 };

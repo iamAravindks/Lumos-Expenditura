@@ -1,12 +1,22 @@
-import {  makeStyles } from "@material-ui/core";
+import {  createTheme, makeStyles } from "@material-ui/core";
 
 export default makeStyles((theme) => ({
+    root: {
+    "& .MuiFormLabel-root": {
+        [theme.breakpoints.between("md", "lg")]: {
+        backgroundColor:"blue !important"
+      }
+    }
+  },
   grid: {
     [theme.breakpoints.up("md")]: {
       minHeight: "100vh",
     },
     [theme.breakpoints.down("md")]: {
       height: "60vh",
+    },
+    [theme.breakpoints.between("md", "lg")]: {
+      height: "100%",
     },
   },
   FormContainer: {
@@ -32,6 +42,10 @@ export default makeStyles((theme) => ({
       width: "100%",
       height: "100%",
     },
+    [theme.breakpoints.between("md", "lg")]: {
+      height: "600px",
+      width: "600px",
+    },
   },
 
   Inputs: {
@@ -43,7 +57,17 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
     // backgroundColor:"lightblue"
     marginBottom: theme.spacing(2),
+    [theme.breakpoints.between("md", "lg")]: {
+      height: "350px",
+    },
   },
+  Input: {
+    [theme.breakpoints.between("md", "lg")]: {
+      minWidth: "350px",
+      fontSize:"1rem"
+    },
+  },
+
   button: {
     marginTop: "20px",
   },
@@ -71,3 +95,4 @@ export default makeStyles((theme) => ({
     },
   },
 }));
+
