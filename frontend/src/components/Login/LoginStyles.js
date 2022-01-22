@@ -61,7 +61,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
+    minWidth: "100%",
     height: "230px",
     flexDirection: "column",
     // backgroundColor:"lightblue"
@@ -76,7 +76,15 @@ export default makeStyles((theme) => ({
       fontSize: "1rem",
     },
   },
-
+  VisibleIcon: {
+    marginTop: "17px",
+    position: "absolute",
+    right: "-50px",
+    color:theme.palette.primary.main,
+    [theme.breakpoints.down("md")]: {
+      right:"1px"
+    }
+},
   button: {
     marginTop: "20px",
   },

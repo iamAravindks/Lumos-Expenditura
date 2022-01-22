@@ -76,7 +76,15 @@ export default makeStyles((theme) => ({
       fontSize: "1rem",
     },
   },
-
+  VisibleIcon: {
+    marginTop: "17px",
+    position: "absolute",
+    right: "-50px",
+    color: theme.palette.primary.main,
+    [theme.breakpoints.down("md")]: {
+      right: "1px",
+    },
+  },
   button: {
     marginTop: "20px",
   },

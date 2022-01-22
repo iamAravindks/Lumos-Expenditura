@@ -14,7 +14,7 @@ const Signup = () =>
       <Grid item xs={12} sm={12} lg={6} className={classes.Hero}>
         <Hero
           Image={welcome}
-          title='Visualize the expenses'
+          title='Visualize your expenses'
           subtitle='Save your money with conscious spending'
         />
       </Grid>
