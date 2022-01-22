@@ -45,7 +45,7 @@ export default makeStyles((theme) => ({
     },
   },
   HeroImg: {
-    width: "700px ",
+    width: "680px ",
     [theme.breakpoints.down("sm")]: {
       width: "200px",
       height: "200px",
@@ -65,13 +65,17 @@ color: "#fff" ,
   [theme.breakpoints.down("md")]: {
     fontSize: "1.7rem",
   },
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.up("md")]: {
       fontSize:"4rem"
     }
 };
 theme.typography.subtitle1 = {
   color: "#fff",
+  marginTop:"5px",
   [theme.breakpoints.down("md")]: {
+    fontSize: ".7rem",
+  },
+  [theme.breakpoints.up("md")]: {
     fontSize: "1.8rem",
     marginTop: "5px",
   },

@@ -26,21 +26,21 @@ export default makeStyles((theme) => ({
     display: "Flex",
     justifyContent: "center",
     alignItems: "center",
-    animation: `$animateLoadHeroMd 1s  ${theme.transitions.easing.easeInOut} `,
+    order: 2,
+    animation: `$animateLoadMd 1s  ${theme.transitions.easing.easeInOut} `,
     [theme.breakpoints.down("md")]: {
-      order: 2,
-      animation: `$animateLoad 1s  ${theme.transitions.easing.easeInOut} `,
+      animation: `$animateLoad .7s  ${theme.transitions.easing.easeInOut} `,
     },
   },
   Hero: {
+    order: 1,
     backgroundColor: theme.palette.primary.main,
-    animation: `$animateLoadMd 1s  ${theme.transitions.easing.easeInOut} `,
+    animation: `$animateLoadHeroMd 1s  ${theme.transitions.easing.easeInOut} `,
     [theme.breakpoints.down("md")]: {
-      order: 1,
       animation: `$animateLoadHero 1s  ${theme.transitions.easing.easeInOut} `,
     },
   },
-  LoginForm: {
+  SignupForm: {
     display: "Flex",
     justifyContent: "center",
     alignItems: "center",
