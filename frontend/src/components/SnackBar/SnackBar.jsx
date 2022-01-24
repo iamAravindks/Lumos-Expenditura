@@ -31,6 +31,7 @@ const CustomSnackbar = ({ open, setOpen, severity }) => {
               : severity === "warning"
               ? "Enter the data correctly"
               : "Transaction failed"}
+
           </MuiAlert>
         </Snackbar>
       </div>

@@ -7,7 +7,7 @@ import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from "./authT
 const userInfoStorage = JSON.parse(localStorage.getItem("userInfo")) || null;
 const initialState = {
     loading: false,
-    userInfo: { ...userInfoStorage },
+    userInfo: userInfoStorage,
     error:null
 }
 export const AuthContext = createContext(initialState);
@@ -47,9 +47,11 @@ export const AuthContext = createContext(initialState);
      }
       return (
         <AuthContext.Provider
-              value={{
-                  userState,
-                  login
+          value={{
+            userInfo: userState.userInfo,
+            loading: userState.loading,
+            error: userState.error,
+            login,
           }}
         >
           {children}

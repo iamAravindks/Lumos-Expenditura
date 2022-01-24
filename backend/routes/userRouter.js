@@ -21,8 +21,7 @@ userRouter.post('/login', expressAsyncHandler(async (req, res) =>
         })
     } else
     {
-        res.status(401)
-        throw new Error("invalid password or email")
+      res.status(401).json({ message: "invalid password or email" })
         }
 }))
 
