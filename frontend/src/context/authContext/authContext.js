@@ -1,21 +1,22 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import axios from 'axios'
 import AuthContextReducer from "./authContextReducer";
 import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from "./authTypes";
+import { ErrorContext } from "../errorContext/ErrorContext";
 
 
 const userInfoStorage = JSON.parse(localStorage.getItem("userInfo")) || null;
 const initialState = {
     loading: false,
     userInfo: userInfoStorage,
-    error:null
 }
 export const AuthContext = createContext(initialState);
 
  const Provider = ({ children }) =>
 { 
-     const [userState, dispatch] = useReducer(AuthContextReducer, initialState);
-     
+   const [userState, dispatch] = useReducer(AuthContextReducer, initialState);
+   const {setError} = useContext(ErrorContext)
+     console.log(setError);
      // @actions
 
      const login = async (email, password) =>
@@ -39,10 +40,13 @@ export const AuthContext = createContext(initialState);
          } catch (error) {
              dispatch({
                  type: USER_LOGIN_FAIL,
-                 payload: error.response && error.response.data.message ?
-                     error.response.data.message :
-                     error.message
+
              })
+           const err =
+             error.response && error.response.data.message
+               ? error.response.data.message
+               : error.message
+           setError(err);
          }
      }
       return (
@@ -50,7 +54,6 @@ export const AuthContext = createContext(initialState);
           value={{
             userInfo: userState.userInfo,
             loading: userState.loading,
-            error: userState.error,
             login,
           }}
         >

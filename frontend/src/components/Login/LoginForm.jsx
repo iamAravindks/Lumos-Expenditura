@@ -6,10 +6,12 @@ import { isValidEmail } from "../../utils/formValidation";
 import useStyles from "./LoginStyles";
 import {AuthContext} from '../../context/authContext/authContext'
 import Loader from "../Loader/Loader";
+import { ErrorContext } from "../../context/errorContext/ErrorContext";
+import Alert from "../Alert/Alert";
 const LoginForm = () =>
 {
-  const { userInfo, error, loading, login } = useContext(AuthContext);
-  console.log(userInfo);
+  const { userInfo, loading, login } = useContext(AuthContext);
+  const {error,setError} = useContext(ErrorContext)
   const classes = useStyles()
   const history = useHistory()
   const [email, setEmail] = useState("")
@@ -52,6 +54,7 @@ const LoginForm = () =>
   const handleSubmission = () =>
   {
     if (email && password) login(email, password)
+    else setError("Check all fields")
     
   }
   useEffect(() =>
@@ -61,8 +64,10 @@ const LoginForm = () =>
 
   return (
     <>
-      {loading && <Loader/>}
+      {loading && <Loader />}
+
       <Grid container spacing={2} className={classes.LoginForm}>
+        {error && <Alert severity='error' message={error} />}
         <Grid item xs={12} style={{ height: "100px" }}>
           <PersonPin className={classes.PersonPin} />
           <Typography align='center' variant='h5' gutterBottom>
@@ -117,9 +122,7 @@ const LoginForm = () =>
             color='primary'
             fullWidth
             disabled={
-              formError.emailError === null && formError.passWord === null
-                ? true
-                : false
+              formError.emailError || formError.passWordError ? true : false
             }
             onClick={handleSubmission}
           >

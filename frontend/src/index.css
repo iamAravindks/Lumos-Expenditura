@@ -13,3 +13,6 @@ body{
     background-position: center;
     overflow-x: hidden;
 }
+#alert{
+    display: flex;
+}

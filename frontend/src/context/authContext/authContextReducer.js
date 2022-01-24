@@ -7,11 +7,11 @@ const AuthContextReducer = (state, action) =>
         case USER_LOGIN_REQUEST:
             return {...state,loading:true}
         case USER_LOGIN_SUCCESS:
-            return { loading: false, userInfo: action.payload, error: null };
+            return { loading: false, userInfo: action.payload };
         case USER_LOGIN_FAIL:
-            return { loading: false, userInfo: null,error:action.payload }
+            return { loading: false, userInfo: null }
         case USER_LOGIN_LOGOUT:
-            return {loading : false,userInfo:null,error:null}
+            return {loading : false,userInfo:null}
         default:
             return state;
     }
