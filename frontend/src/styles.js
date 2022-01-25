@@ -27,7 +27,7 @@ export default makeStyles((theme) => ({
       margin: theme.spacing(2),
     },
     [theme.breakpoints.up("sm")]: {
-      minHeight:"100vh"
+      minHeight:"93.2vh"
     }
   },
   Income: {

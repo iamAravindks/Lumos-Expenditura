@@ -15,7 +15,6 @@ import useStyles from "./styles";
 const Main = () => {
   const classes = useStyles();
   const {balance} = useContext(MoneyManagerContext)
-console.log(balance,balance<0)
   return (
     <Card className={classes.root}>
       <CardHeader title='Expenditura' subheader='Your personal money manager' />

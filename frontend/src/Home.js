@@ -1,15 +1,17 @@
 import { Grid } from "@material-ui/core";
 import Details from "./components/Details/Details";
+import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import makeStyles from "./styles";
 const Home = () => {
   const classes = makeStyles();
   return (
+    <>
+      <Header/>
     <div className="home">
       <Grid
         container
         className={classes.grid}
-        spacing={2}
         alignItems='center'
         justifyContent='center'
         // style={{ minHeight: "10vh" }}
@@ -24,7 +26,8 @@ const Home = () => {
           <Details title='Expense' />
         </Grid>
       </Grid>
-    </div>
+      </div>
+      </>
   );
 };
 
