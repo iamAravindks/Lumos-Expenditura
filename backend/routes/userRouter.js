@@ -52,11 +52,11 @@ userRouter.get('/profile',isAuth, expressAsyncHandler(async (req, res) =>
 
 userRouter.post("/", expressAsyncHandler(async (req, res) =>
 {
-  try {
+  
         const { name, email, password } = req.body;
         const userExists = await User.findOne({ email });
         if (userExists) {
-          res.status(400).json({ message: "User already exists" });
+         return res.status(400).json({ message: "User already exists" });
         }
         const user = await User.create({
           name,
@@ -76,9 +76,6 @@ userRouter.post("/", expressAsyncHandler(async (req, res) =>
         } else {
           res.status(400).json({ message: "Registration failed" });
         }
-  } catch (error) {
-      res.status(500).json({message:error.message})
-  }
 }))
 
 
