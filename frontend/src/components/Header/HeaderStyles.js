@@ -3,16 +3,18 @@ export default makeStyles((theme) => ({
   container: { display: "flex" },
   BrandMobile: {
     flexGrow: 1,
+    textDecoration: "none",
+    color: "#fff",
     alignSelf: "center",
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
+
   },
   BrandDesktop: {
+    textDecoration: "none",
+    color: "#fff",
     flexGrow: 1,
     alignSelf: "center",
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
     },
   },
 }));

@@ -25,10 +25,9 @@ function stringAvatar(name) {
   };
 }
 
-export default function Profile({ name })
+export default function ProfileAvatar({ name })
 {
     const style = stringAvatar(name)
-    console.log(style);
   return (
 
       <Avatar style={style.sx} children={style.children} />

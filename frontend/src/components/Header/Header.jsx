@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import {
   AppBar,
   Box,
@@ -11,13 +11,13 @@ import {
 } from "@material-ui/core";
 import {AuthContext} from '../../context/authContext/authContext'
 import useStyles from './HeaderStyles'
-import Profile from "./Profile";
-import { useState } from "react";
+import Profile from "./ProfileAvatar";
+import { Link } from "react-router-dom";
 
 
 
 const ResponsiveAppBar = () => {
-  const {userInfo} = useContext(AuthContext)
+  const {userInfo,logout} = useContext(AuthContext)
     const [anchorElUser, setAnchorElUser] = useState(null);
   const classes = useStyles()
   
@@ -28,36 +28,22 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handleProfile = () =>
+
+  const handleLogout = () =>
   {
-    alert(userInfo.name)
     setAnchorElUser(null);
-  }
-    const handleLogout = () => {
-      alert("You are going to logout");
-      setAnchorElUser(null);
+      const agree = window.confirm("Are you sure")
+      if(agree) logout()
     };
 console.log(userInfo.name);
   return (
     <AppBar position='static' style={{ minHeight: "3rem" }}>
       <Container maxWidth='xl' className={classes.container}>
-        <Typography
-          variant='h6'
-          noWrap
-          component='div'
-          className={classes.BrandMobile}
-        >
-          Expenditura
-        </Typography>
-
-        <Typography
-          variant='h6'
-          noWrap
-          component='div'
-          className={classes.BrandDesktop}
-        >
-          Expenditura
-        </Typography>
+        <Link to='/' className={classes.BrandMobile}>
+          <Typography variant='h6' noWrap component='div'>
+            Expenditura
+          </Typography>
+        </Link>
 
         <Box sx={{ flexGrow: 0, justifySelf: "end" }}>
           <Tooltip title='Open settings'>
@@ -81,8 +67,13 @@ console.log(userInfo.name);
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            <MenuItem onClick={handleProfile}>
-              <Typography align='center'>Profile</Typography>
+            <MenuItem>
+              <Link to='/profile' style={{ textDecoration: "none" }}>
+                {" "}
+                <Typography align='center' color='textPrimary'>
+                  Profile
+                </Typography>
+              </Link>
             </MenuItem>
             <MenuItem onClick={handleLogout}>
               <Typography align='center'>Logout</Typography>
