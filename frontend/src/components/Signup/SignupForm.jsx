@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { HowToReg, Visibility, VisibilityOff } from "@material-ui/icons";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import useStyles from "./SignupStyles";
 import { isValidEmail, isValidName } from "../../utils/formValidation";
+import { AuthContext } from "../../context/authContext/authContext";
+import { ErrorContext } from "../../context/errorContext/ErrorContext";
+import Alert from "../Alert/Alert";
+import Loader from "../Loader/Loader";
 const initialState = {
   emailError: null,
   nameError: null,
@@ -12,6 +16,10 @@ const initialState = {
 };
 const SignupForm = () => {
   const classes = useStyles();
+  const { userInfo, loading, register } = useContext(AuthContext);
+  const { error: serverError, setError: setServerError } =
+    useContext(ErrorContext);
+  const history = useHistory();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +41,15 @@ const SignupForm = () => {
     }
   }, [rePassword]);
 
+  useEffect(() => {
+    if (userInfo) history.push("/");
+  }, [userInfo]);
+  
+  const handleSubmission = () => {
+    if (name && email && password && rePassword)
+      register(name, email, password);
+    else setServerError("Enter the data correctly");
+  };
   const handleEmail = (e) => {
     setEmail(e.target.value);
     if (!isValidEmail(e.target.value))
@@ -64,6 +81,8 @@ const SignupForm = () => {
 
   return (
     <Grid container spacing={2} className={classes.SignupForm}>
+      {loading && <Loader />}
+      {serverError && <Alert severity='error' message={serverError} />}
       <Grid item xs={12} style={{ height: "100px" }}>
         <HowToReg className={classes.PersonPin} />
         <Typography align='center' variant='h5' gutterBottom>
@@ -157,6 +176,7 @@ const SignupForm = () => {
               ? false
               : true
           }
+          onClick={handleSubmission}
         >
           Signup
         </Button>
