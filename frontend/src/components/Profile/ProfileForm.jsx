@@ -3,11 +3,12 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext/authContext.js";
 import { ErrorContext } from "../../context/errorContext/ErrorContext.js";
+import { getToken } from "../../utils/serverUtils.js";
 
 import useStyles from "./ProfileStyles.js";
 const ProfileForm = () => {
   const classes = useStyles();
-  const { userInfo, loading } = useContext(AuthContext);
+  const { userInfo, loading, updateUserProfile } = useContext(AuthContext);
   const { setError: setServerError } = useContext(ErrorContext);
   const [showPassword, setShowPassword] = useState(false);
   const [disable, setDisable] = useState(true);
@@ -16,7 +17,6 @@ const ProfileForm = () => {
   const [email, setEmail] = useState(userInfo.email)
   const [password, setPassword] = useState("")
   const [rePassword,setRePassword]=useState("")
-
   const handleCancel = () =>
   {
     setEmail(userInfo.email)
@@ -25,6 +25,11 @@ const ProfileForm = () => {
     setRePassword("")
     setDisable(true);
   }
+  const handleUpdateProfile = () =>
+  {
+    updateUserProfile({ name, email, password })
+    setDisable(true)
+  }
     useEffect(() => {
       if (password !== rePassword) {
         setError("passwords doesn't match");
@@ -32,6 +37,11 @@ const ProfileForm = () => {
         setError(null);
       }
     }, [rePassword]);
+  useEffect(() =>
+  {
+    setName(userInfo.name)
+    setEmail(userInfo.email)
+  },[userInfo])
   return (
     <Grid container spacing={2} className={classes.ProfileForm}>
       <Grid item xs={12}>
@@ -99,25 +109,39 @@ const ProfileForm = () => {
           </>
         )}
       </Grid>
-      <Button
-        className={classes.button}
-        variant='contained'
-        color='primary'
-        fullWidth
-        onClick={() => setDisable(false)}
-      >
-        Update Profile
-      </Button>
-      {!disable && (
+      {disable && (
         <Button
           className={classes.button}
           variant='contained'
-          color='secondary'
+          color='primary'
           fullWidth
-          onClick={handleCancel}
+          onClick={() => setDisable(false)}
         >
-          cancel
+          Edit Profile
         </Button>
+      )}
+      {!disable && (
+        <>
+          <Button
+            className={classes.button}
+            variant='contained'
+            color='primary'
+            fullWidth
+            onClick={handleUpdateProfile}
+          >
+            Update 
+          </Button>
+          
+          <Button
+            className={classes.button}
+            variant='contained'
+            color='secondary'
+            fullWidth
+            onClick={handleCancel}
+          >
+            cancel
+          </Button>
+        </>
       )}
     </Grid>
   );

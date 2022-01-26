@@ -9,18 +9,17 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import {AuthContext} from '../../context/authContext/authContext'
-import useStyles from './HeaderStyles'
+import { AuthContext } from "../../context/authContext/authContext";
+import useStyles from "./HeaderStyles";
 import Profile from "./ProfileAvatar";
-import { Link } from "react-router-dom";
-
-
+import { Link, useHistory } from "react-router-dom";
 
 const ResponsiveAppBar = () => {
-  const {userInfo,logout} = useContext(AuthContext)
-    const [anchorElUser, setAnchorElUser] = useState(null);
-  const classes = useStyles()
-  
+  const { userInfo, logout } = useContext(AuthContext);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const history = useHistory()
+  const classes = useStyles();
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -29,13 +28,14 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  const handleLogout = () =>
-  {
+  const handleLogout = () => {
     setAnchorElUser(null);
-      const agree = window.confirm("Are you sure")
-      if(agree) logout()
-    };
-console.log(userInfo.name);
+    const agree = window.confirm("Are you sure");
+    if (agree) {
+      logout();
+      history.push("/login")
+    }
+  };
   return (
     <AppBar position='static' style={{ minHeight: "3rem" }}>
       <Container maxWidth='xl' className={classes.container}>

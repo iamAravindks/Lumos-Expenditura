@@ -16,9 +16,7 @@ const App = () => {
         <Route exact path='/signup'>
           <Signup />
         </Route>
-        <Route exact path='/profile'>
-          <Profile/>
-        </Route>
+        <PrivateRoute component={Profile} path='/profile' exact />
       </Switch>
     </div>
   );

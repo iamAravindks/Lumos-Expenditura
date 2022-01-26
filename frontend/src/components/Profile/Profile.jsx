@@ -12,7 +12,6 @@ const Profile = () => {
   const { userInfo, loading } = useContext(AuthContext);
   const { error } = useContext(ErrorContext);
   const classes = useStyles()
-console.log(userInfo);
   return (
     <>
       {loading && <Loader />}
