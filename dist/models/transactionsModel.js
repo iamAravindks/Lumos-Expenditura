@@ -21,9 +21,11 @@ const transactionSchema = new _mongoose.default.Schema({
   type: {
     type: String,
     required: true
+  },
+  date: {
+    type: Date,
+    required: true
   }
-}, {
-  timestamps: true
 });
 
 const TransactionsSchema = _mongoose.default.Schema({

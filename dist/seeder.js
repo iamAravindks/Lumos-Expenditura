@@ -26,7 +26,6 @@ const importData = async () => {
         transactions: [..._transactions.default]
       };
     });
-    console.log(sampleTransactions);
     await _transactionsModel.default.insertMany(sampleTransactions);
     console.log("Data imported".green.inverse);
     process.exit();

@@ -3,12 +3,11 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext/authContext.js";
 import { ErrorContext } from "../../context/errorContext/ErrorContext.js";
-import { getToken } from "../../utils/serverUtils.js";
 
 import useStyles from "./ProfileStyles.js";
 const ProfileForm = () => {
   const classes = useStyles();
-  const { userInfo, loading, updateUserProfile } = useContext(AuthContext);
+  const { userInfo, updateUserProfile } = useContext(AuthContext);
   const { setError: setServerError } = useContext(ErrorContext);
   const [showPassword, setShowPassword] = useState(false);
   const [disable, setDisable] = useState(true);

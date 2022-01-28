@@ -10,6 +10,10 @@ var _db = _interopRequireDefault(require("./config/db"));
 
 var _transactionRoute = _interopRequireDefault(require("./routes/transactionRoute"));
 
+var _userRouter = _interopRequireDefault(require("./routes/userRouter"));
+
+var _errorHandler = require("./middlewares/errorHandler");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express.default)();
@@ -21,4 +25,7 @@ app.use(_express.default.urlencoded({
   extended: true
 }));
 app.use('/api/transactions', _transactionRoute.default);
+app.use("/api/users", _userRouter.default);
+app.use(_errorHandler.notFound);
+app.use(_errorHandler.errorHandler);
 app.listen(PORT, () => console.log(`hey , i'm listening at http://localhost:${PORT}`.white.bold));
