@@ -16,17 +16,18 @@ import { MoneyManagerContext } from "../../../context/transactionContext/context
 
 const List = () => {
     const classes = useStyles();
-  const { transactions, deleteTransaction } = useContext(MoneyManagerContext);
+  const { transactionsState, deleteTransaction } =
+    useContext(MoneyManagerContext);
   
   return (
     <MUIList dense={false} className={classes.list}>
-      {transactions.map((transaction) => (
+      {transactionsState.transactions.map((transaction) => (
         <Slide
           direction='down'
           in
           mountOnEnter
           unmountOnExit
-          key={transaction.id}
+          key={transaction._id}
         >
           <ListItem>
             <ListItemAvatar>
@@ -48,7 +49,7 @@ const List = () => {
               <IconButton
                 edge='end'
                 aria-label='delete'
-                onClick={()=>deleteTransaction(transaction.id)}
+                onClick={() => deleteTransaction(transaction._id)}
               >
                 <Delete />
               </IconButton>

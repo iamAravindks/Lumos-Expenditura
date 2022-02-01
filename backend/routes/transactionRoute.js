@@ -17,9 +17,11 @@ transactionRouter.get(
       if (!transactions) {
         res.json({
           message: "No transactions found",
-          data: null,
+          data: [],
         });
-      } else res.send(transactions.transactions);
+      } else res.json({
+       data: transactions.transactions
+      });
     } catch (error) {
       res.status(500).send({ message: error.message });
     }
@@ -47,7 +49,7 @@ transactionRouter.post(
           user: mongoose.Types.ObjectId(req.user.id),
           transactions: [newTransaction],
         });
-        const { amount, category, type, date } =
+        const { amount, category, type, date,_id } =
           createdTransaction.transactions[0];
         res.status(201).json({
           message: "Transaction created",
@@ -56,19 +58,20 @@ transactionRouter.post(
             category,
             type,
             date,
+            _id
           },
         });
       } else {
         allTransactions.transactions.push(newTransaction);
         const updatedTransactions = await allTransactions.save();
-        const { amount, category, type, date } =
+        const { amount, category, type, date,_id } =
           updatedTransactions.transactions[
             updatedTransactions.transactions.length - 1
           ];
 
         res.status(201).send({
           message: "Transaction Created.",
-          data: { amount, category, type, date },
+          data: { amount, category, type, date,_id },
         });
       }
     } catch (error) {
@@ -94,7 +97,7 @@ transactionRouter.delete(
         });
         res.status(200).json({
           message: "cleared all the transactions",
-          data: null,
+          data: [],
         });
       } else {
         res.status(404).json({ message: "No transactions to delete" });
@@ -117,7 +120,6 @@ transactionRouter.delete(
         user: mongoose.Types.ObjectId(req.user._id),
       });
       if (checkTransactionsExists && checkTransactionsExists.transactions) {
-        const options = { returnNewDocument: true };
         const deletedTransaction = await Transactions.findOneAndUpdate(
           {
             user: mongoose.Types.ObjectId(req.user._id),
@@ -127,7 +129,7 @@ transactionRouter.delete(
               transactions: { _id: mongoose.Types.ObjectId(req.params.id) },
             },
           },
-          options
+          { new: true }
         );
         res.json({
           data: deletedTransaction.transactions,

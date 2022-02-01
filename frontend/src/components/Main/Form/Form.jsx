@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   FormControl,
@@ -9,7 +9,6 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { v4 as uuidv4 } from "uuid";
 import { MoneyManagerContext } from "../../../context/transactionContext/context";
 import useStyles from "./styles";
 import {
@@ -18,6 +17,7 @@ import {
 } from "../../../constants/categories";
 import formatDate from "../../../utils/formatDate";
 import CustomSnackbar from "../../SnackBar/SnackBar";
+import { ErrorContext } from "../../../context/errorContext/ErrorContext";
 
 const initialState = {
   amount: "",
@@ -35,8 +35,9 @@ const Form = () => {
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState(null);
   const [focus, setFocus] = useState(initialFocus);
-  const { addTransaction, clearTransactions, transactions } =
+  const { addTransaction, clearTransactions, transactionsState } =
     useContext(MoneyManagerContext);
+  const {error} = useContext(ErrorContext)
   const categories =
     formData.type === "Income" ? incomeCategories : expenseCategories;
   
@@ -44,7 +45,6 @@ const Form = () => {
     const transaction = {
       ...formData,
       amount: Number(formData.amount),
-      id: uuidv4(),
     };
     if (
       formData.amount &&
@@ -73,7 +73,15 @@ const Form = () => {
     setOpen(true);
   };
   
-
+  useEffect(() =>
+  {
+    if (error)
+    {
+      setSeverity("error")
+      setOpen(true);
+    }
+  
+},[error])
   return (
     <Grid container spacing={2}>
       <CustomSnackbar open={open} setOpen={setOpen} severity={severity} />
@@ -141,7 +149,7 @@ const Form = () => {
       >
         Create
       </Button>
-      {transactions.length > 0 && (
+      {transactionsState.transactions.length > 0 && (
         <Button
           className={classes.button}
           variant='outlined'

@@ -5,9 +5,10 @@ import { expenseCategories, incomeCategories, resetCategories } from '../constan
 const useTransactions = (title) =>
 {
     resetCategories()
-    const { transactions } = useContext(MoneyManagerContext)
-    
-    const transactionsPerType = transactions.filter(transaction => transaction.type === title)
+    const { transactionsState } = useContext(MoneyManagerContext);
+    const transactionsPerType = transactionsState.transactions.filter(
+      (transaction) => transaction.type === title
+    );
     
     const totalAmount = transactionsPerType.reduce((acc, currTransaction) => acc += currTransaction.amount, 0)
     const categories = title === "Income" ? incomeCategories : expenseCategories
