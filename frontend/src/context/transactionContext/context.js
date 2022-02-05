@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useReducer, createContext, useContext } from "react";
-import { getToken } from "../../utils/serverUtils";
 import { ErrorContext } from "../errorContext/ErrorContext";
 import contextReducer from "./contextReducer";
 import { ADD_TRANSACTION, CLEAR_TRANSACTIONS, DELETE_TRANSACTION, FAIL_TRANSACTION, LOAD_TRANSACTION, REQUEST_TRANSACTION } from "./types";
@@ -18,7 +17,6 @@ export const Provider = ({ children }) => {
   const config = {
                headers: {
                  "Content-Type": "application/json",
-                 Authorization: `Bearer ${getToken()}`,
                },
              };
   const deleteTransaction = async(id) =>
@@ -112,6 +110,7 @@ export const Provider = ({ children }) => {
           ? error.response.data.message
           : error.message;
       setError(err);
+  
     }
   }
  

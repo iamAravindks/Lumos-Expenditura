@@ -14,7 +14,7 @@ import {
   USER_REGISTER_SUCCESS,
 } from "./authTypes";
 import { ErrorContext } from "../errorContext/ErrorContext";
-import { getToken } from "../../utils/serverUtils";
+
 
 const userInfoStorage = JSON.parse(localStorage.getItem("userInfo")) || null;
 const initialState = {
@@ -115,7 +115,6 @@ const Provider = ({ children }) => {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${getToken()}`,
         },
       };
       const { data } = await axios.put(

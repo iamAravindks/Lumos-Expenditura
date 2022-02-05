@@ -18,6 +18,7 @@ import {
 import formatDate from "../../../utils/formatDate";
 import CustomSnackbar from "../../SnackBar/SnackBar";
 import { ErrorContext } from "../../../context/errorContext/ErrorContext";
+import Alert from "../../Alert/Alert";
 
 const initialState = {
   amount: "",
@@ -73,18 +74,11 @@ const Form = () => {
     setOpen(true);
   };
   
-  useEffect(() =>
-  {
-    if (error)
-    {
-      setSeverity("error")
-      setOpen(true);
-    }
-  
-},[error])
+
   return (
     <Grid container spacing={2}>
       <CustomSnackbar open={open} setOpen={setOpen} severity={severity} />
+      {error && <Alert severity="error" message={error}/>}
       <Grid item xs={12}>
         <Typography align='center' variant='subtitle2' gutterBottom>
           Add your expense/income

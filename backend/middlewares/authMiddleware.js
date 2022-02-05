@@ -4,10 +4,10 @@ import config from "../config";
 import User from "../models/userModel";
 
 export const isAuth = expressAsyncHandler(async (req, res, next) => {
-  const bearerToken = req.headers.authorization;
-  if (bearerToken && bearerToken.startsWith("Bearer")) {
+
+  const token = req.cookies.access_token;
+  if (token) {
     try {
-      const token = bearerToken.split(" ")[1];
       const decodedObj = jwt.verify(token, config.JWT_SECRET);
       const user = await User.findById(decodedObj.id);
       if (user) {
@@ -23,7 +23,7 @@ export const isAuth = expressAsyncHandler(async (req, res, next) => {
       throw new Error("Not authorized , token validation failed");
     }
   }
-  if (!bearerToken) {
-    res.status(401).json({ message: "Not authorized,no token" });
+  else {
+    res.status(401).json({ message: "Not authorized,token can't found" });
   }
 });

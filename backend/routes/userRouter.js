@@ -14,11 +14,16 @@ userRouter.post(
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (user && (await user.matchPassword(password))) {
+      const maxAge = 3 * 24 * 60 * 60;
+      const token = generateToken(user._id);
+      res.cookie("access_token", token, {
+        httpOnly: true,
+        maxAge: maxAge * 1000,
+      });
       res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
-        token: generateToken(user._id),
       });
     } else {
       res.status(401).json({ message: "invalid password or email" });
@@ -66,11 +71,16 @@ userRouter.post(
     });
 
     if (user) {
+      const maxAge = 3 * 24 * 60 * 60;
+      const token = generateToken(user._id);
+      res.cookie("access_token", token, {
+        httpOnly: true,
+        maxAge: maxAge * 1000,
+      });
       res.status(201).json({
         _id: user._id,
         name: user.name,
         email: user.email,
-        token: generateToken(user._id),
       });
     } else {
       res.status(400).json({ message: "Registration failed" });
@@ -93,16 +103,25 @@ userRouter.put(
       if (req.body.password) user.password = req.body.password;
 
       const updatedUser = await user.save();
+
+         const maxAge = 3 * 24 * 60 * 60;
+         const token = generateToken(updatedUser._id);
+         res.cookie("access_token", token, {
+           httpOnly: true,
+           maxAge: maxAge * 1000,
+         });
+      
       res.json({
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
-        token: generateToken(updatedUser._id),
       });
     } else {
       res.status(404).json({ message: "user doesn't found" });
     }
   })
 );
+
+
 
 export default userRouter;
