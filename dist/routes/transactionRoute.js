@@ -31,9 +31,11 @@ transactionRouter.get("/", _authMiddleware.isAuth, (0, _expressAsyncHandler.defa
     if (!transactions) {
       res.json({
         message: "No transactions found",
-        data: null
+        data: []
       });
-    } else res.send(transactions.transactions);
+    } else res.json({
+      data: transactions.transactions
+    });
   } catch (error) {
     res.status(500).send({
       message: error.message
@@ -64,7 +66,8 @@ transactionRouter.post("/", _authMiddleware.isAuth, (0, _expressAsyncHandler.def
         amount,
         category,
         type,
-        date
+        date,
+        _id
       } = createdTransaction.transactions[0];
       res.status(201).json({
         message: "Transaction created",
@@ -72,7 +75,8 @@ transactionRouter.post("/", _authMiddleware.isAuth, (0, _expressAsyncHandler.def
           amount,
           category,
           type,
-          date
+          date,
+          _id
         }
       });
     } else {
@@ -82,7 +86,8 @@ transactionRouter.post("/", _authMiddleware.isAuth, (0, _expressAsyncHandler.def
         amount,
         category,
         type,
-        date
+        date,
+        _id
       } = updatedTransactions.transactions[updatedTransactions.transactions.length - 1];
       res.status(201).send({
         message: "Transaction Created.",
@@ -90,7 +95,8 @@ transactionRouter.post("/", _authMiddleware.isAuth, (0, _expressAsyncHandler.def
           amount,
           category,
           type,
-          date
+          date,
+          _id
         }
       });
     }
@@ -115,7 +121,7 @@ transactionRouter.delete("/", _authMiddleware.isAuth, (0, _expressAsyncHandler.d
       });
       res.status(200).json({
         message: "cleared all the transactions",
-        data: null
+        data: []
       });
     } else {
       res.status(404).json({
@@ -138,9 +144,6 @@ transactionRouter.delete("/:id", _authMiddleware.isAuth, (0, _expressAsyncHandle
     });
 
     if (checkTransactionsExists && checkTransactionsExists.transactions) {
-      const options = {
-        returnNewDocument: true
-      };
       const deletedTransaction = await _transactionsModel.default.findOneAndUpdate({
         user: _mongoose.default.Types.ObjectId(req.user._id)
       }, {
@@ -149,7 +152,9 @@ transactionRouter.delete("/:id", _authMiddleware.isAuth, (0, _expressAsyncHandle
             _id: _mongoose.default.Types.ObjectId(req.params.id)
           }
         }
-      }, options);
+      }, {
+        new: true
+      });
       res.json({
         data: deletedTransaction.transactions
       });
