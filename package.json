@@ -10,7 +10,7 @@
     "data:import": "npm run build && node dist/seeder",
     "data:destroy": "npm run build && node dist/seeder -d",
     "client": "cd frontend && npm start",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm run build && npm install --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install && npm run build && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
