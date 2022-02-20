@@ -20,10 +20,10 @@ export const isAuth = expressAsyncHandler(async (req, res, next) => {
       }
     } catch (error) {
       res.status(401);
-      throw new Error("Not authorized , token validation failed");
+      throw new Error("Session expired! try to login again");
     }
   }
   else {
-    res.status(401).json({ message: "Not authorized,token can't found" });
+    res.status(401).json({ message: "Invalid login credentials!" });
   }
 });
