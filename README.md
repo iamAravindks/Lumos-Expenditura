@@ -32,7 +32,13 @@ To run this project, you will need to add the following environment variables to
 
 `JWT_SECRET`
 
-  set MONGODB_URL to localhost while developing
+`MONGODB_LOCALHOST_URL`
+
+`NODE_ENV`
+
+
+  set MONGODB_LOCALHOST_URL to localhost in development phase
+  set development to localhost in development phase
 ## Installation
 
 Install my-project with npm
