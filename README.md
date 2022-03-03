@@ -1,7 +1,7 @@
 
 # Expenditura
 
-Personal Monay monagement App with enhanced UI ✨
+Personal Money management App with enhanced UI ✨
 
 
 
@@ -19,8 +19,9 @@ Personal Monay monagement App with enhanced UI ✨
 
 - User Login/Signup
 - Add/Delete/Clear Transaction
-- Profile View/Updation
+- Profile View/Update
 - Distinct view of Expense/Income with Charts/Lists
+- **more on the way 🤩**
 
 
   
@@ -66,7 +67,7 @@ For destroying the data from DB
   npm run data:export
 ```
 
-##Contribution
+## Contribution
 
 This project is under development phase .If you have any idea to improve it or make it more interesting, feel free to send a PR, or create an issue for a feature request.
 
