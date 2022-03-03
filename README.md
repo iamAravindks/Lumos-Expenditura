@@ -38,7 +38,8 @@ To run this project, you will need to add the following environment variables to
 
 
   set MONGODB_LOCALHOST_URL to localhost in development phase
-  set development to localhost in development phase
+
+  set NODE_ENV to localhost in development phase
 ## Installation
 
 Install my-project with npm
@@ -64,3 +65,9 @@ For destroying the data from DB
 ```bash
   npm run data:export
 ```
+
+##Contribution
+
+This project is under development phase .If you have any idea to improve it or make it more interesting, feel free to send a PR, or create an issue for a feature request.
+
+Good luck 🎉!
