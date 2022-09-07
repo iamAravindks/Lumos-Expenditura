@@ -13,10 +13,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const connectDB = async () => {
   try {
-    const con = await _mongoose.default.connect(_config.default.MONGODB_URL, {
+    const con = await _mongoose.default.connect(_config.default.MONGODB_LOCALHOST_URL, {
       useUnifiedTopology: true,
       useNewUrlParser: true
-    }); // console.log(`MongoDB connected : ${con.connection.host}`.blue.underline);
+    });
+    console.log(`MongoDB connected : ${con.connection.host}`.blue.underline);
   } catch (error) {
     console.log();
     console.log(`Error : ${error.message}`.red.underline.bold);

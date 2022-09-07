@@ -19,9 +19,10 @@ transactionRouter.get(
           message: "No transactions found",
           data: [],
         });
-      } else res.json({
-       data: transactions.transactions
-      });
+      } else
+        res.json({
+          data: transactions.transactions,
+        });
     } catch (error) {
       res.status(500).send({ message: error.message });
     }
@@ -49,7 +50,7 @@ transactionRouter.post(
           user: mongoose.Types.ObjectId(req.user.id),
           transactions: [newTransaction],
         });
-        const { amount, category, type, date,_id } =
+        const { amount, category, type, date, _id } =
           createdTransaction.transactions[0];
         res.status(201).json({
           message: "Transaction created",
@@ -58,20 +59,20 @@ transactionRouter.post(
             category,
             type,
             date,
-            _id
+            _id,
           },
         });
       } else {
         allTransactions.transactions.push(newTransaction);
         const updatedTransactions = await allTransactions.save();
-        const { amount, category, type, date,_id } =
+        const { amount, category, type, date, _id } =
           updatedTransactions.transactions[
             updatedTransactions.transactions.length - 1
           ];
 
         res.status(201).send({
           message: "Transaction Created.",
-          data: { amount, category, type, date,_id },
+          data: { amount, category, type, date, _id },
         });
       }
     } catch (error) {
@@ -104,6 +105,99 @@ transactionRouter.delete(
       }
     } catch (error) {
       res.status(500).send({ message: error.message });
+    }
+  })
+);
+
+// @desc Get a particular transaction by an ID
+// @route GET /api/transaction/:id
+// @access PRIVATE
+
+transactionRouter.get(
+  "/:id",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    try {
+      const transactions = await Transactions.find(
+        {
+          user: req.user._id,
+          "transactions._id": req.params.id,
+        },
+        {
+          "transactions.$": 1,
+        }
+      );
+      if (!transactions) {
+        res.json({
+          message: "No transactions found",
+          data: [],
+        });
+      } else
+        res.json({
+          data: transactions,
+        });
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  })
+);
+
+// @desc update a transaction
+// @route PUT /api/transaction/:id
+// @access private
+
+transactionRouter.put(
+  "/:id",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    try {
+      const existedTransactions = await Transactions.find(
+        {
+          user: req.user._id,
+          "transactions._id": req.params.id,
+        },
+        {
+          "transactions.$": 1,
+        }
+      );
+      if (!existedTransactions) {
+        res.json({
+          message: "No transactions found",
+          data: [],
+        });
+      }
+
+      const updatedTransactions = await Transactions.updateOne(
+        {
+          user: req.user._id,
+          "transactions._id": req.params.id,
+        },
+        {
+          $set: {
+            "transactions.$.amount":
+              req.body.amount || existedTransactions[0].transactions.amount,
+            "transactions.$.type":
+              req.body.type || existedTransactions[0].transactions.type,
+            "transactions.$.category":
+              req.body.category || existedTransactions[0].transactions.category,
+            "transactions.$.date":
+              req.body.date || existedTransactions[0].transactions.date,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+      const newOne = await Transactions.findOne({
+        user: req.user._id,
+      });
+      if (updatedTransactions) {
+        res.json({
+          data: newOne,
+        });
+      }
+    } catch (e) {
+      throw new Error(e);
     }
   })
 );

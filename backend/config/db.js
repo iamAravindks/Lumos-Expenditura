@@ -5,11 +5,11 @@ const connectDB = async () =>
 {
     try
     {
-        const con = await mongoose.connect(config.MONGODB_URL, {
-            useUnifiedTopology: true,
-            useNewUrlParser : true
-        })
-        // console.log(`MongoDB connected : ${con.connection.host}`.blue.underline);
+        const con = await mongoose.connect(config.MONGODB_LOCALHOST_URL, {
+          useUnifiedTopology: true,
+          useNewUrlParser: true,
+        });
+        console.log(`MongoDB connected : ${con.connection.host}`.blue.underline);
     } catch (error)
     {
         console.log();

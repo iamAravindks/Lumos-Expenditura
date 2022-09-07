@@ -20,28 +20,42 @@ import CustomSnackbar from "../../SnackBar/SnackBar";
 import { ErrorContext } from "../../../context/errorContext/ErrorContext";
 import Alert from "../../Alert/Alert";
 
-const initialState = {
-  amount: "",
-  category: "",
-  type: "Income",
-  date: formatDate(new Date()),
-};
+
 const initialFocus = {
   category: false,
   amount: false,
 };
-const Form = () => {
+const Form = ({ formData, setFormData, initialState,editMode,setEditMode }) => {
   const classes = useStyles();
-  const [formData, setFormData] = useState(initialState);
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState(null);
   const [focus, setFocus] = useState(initialFocus);
-  const { addTransaction, clearTransactions, transactionsState } =
-    useContext(MoneyManagerContext);
-  const {error} = useContext(ErrorContext)
+  const {
+    addTransaction,
+    clearTransactions,
+    transactionsState,
+    editTransaction,
+  } = useContext(MoneyManagerContext);
+  const { error,setError } = useContext(ErrorContext);
   const categories =
     formData.type === "Income" ? incomeCategories : expenseCategories;
   
+
+  const updateTransaction = async () =>
+  {
+    
+    const { amount, type, category, date} = formData
+    if (formData.hasOwnProperty("id") && formData.id)
+    {
+      editTransaction(formData.id, amount, type, category, date);
+      setFormData(initialState)
+    } else
+    {
+      setError("You are not in edit mode")
+    }
+  }
+ 
+
   const createTransaction = () => {
     const transaction = {
       ...formData,
@@ -73,14 +87,13 @@ const Form = () => {
     }
     setOpen(true);
   };
-  
 
   return (
     <Grid container spacing={2}>
       <CustomSnackbar open={open} setOpen={setOpen} severity={severity} />
-      {error && <Alert severity="error" message={error}/>}
+      {error && <Alert severity="error" message={error} />}
       <Grid item xs={12}>
-        <Typography align='center' variant='subtitle2' gutterBottom>
+        <Typography align="center" variant="subtitle2" gutterBottom>
           Add your expense/income
         </Typography>
       </Grid>
@@ -91,8 +104,8 @@ const Form = () => {
             value={formData.type}
             onChange={(e) => setFormData({ ...formData, type: e.target.value })}
           >
-            <MenuItem value='Income'>Income</MenuItem>
-            <MenuItem value='Expense'>Expense</MenuItem>
+            <MenuItem value="Income">Income</MenuItem>
+            <MenuItem value="Expense">Expense</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -115,8 +128,8 @@ const Form = () => {
       </Grid>
       <Grid xs={6} item>
         <TextField
-          type='number'
-          label='Amount'
+          type="number"
+          label="Amount"
           fullWidth
           focused={focus.amount}
           value={formData.amount}
@@ -125,8 +138,8 @@ const Form = () => {
       </Grid>
       <Grid xs={6} item>
         <TextField
-          type='date'
-          label='Date'
+          type="date"
+          label="Date"
           fullWidth
           value={formData.date}
           onChange={(e) =>
@@ -134,24 +147,49 @@ const Form = () => {
           }
         />
       </Grid>
+      {editMode ? (
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={updateTransaction}
+        >
+          Update
+        </Button>
+      ) : (
+        <Button
+          className={classes.button}
+          variant="outlined"
+          color="primary"
+          fullWidth
+          onClick={createTransaction}
+        >
+          Create
+        </Button>
+      )}
+
       <Button
         className={classes.button}
-        variant='outlined'
-        color='primary'
+        variant="text"
+        color="secondary"
         fullWidth
-        onClick={createTransaction}
+        onClick={() => {
+          setFormData(initialState);
+          setEditMode(false);
+        }}
       >
-        Create
+        {editMode ? "Cancel update" : "Clear Form"}
       </Button>
       {transactionsState.transactions.length > 0 && (
         <Button
           className={classes.button}
-          variant='outlined'
-          color='secondary'
+          variant="outlined"
+          color="secondary"
           fullWidth
           onClick={() => clearTransactions()}
         >
-          Clear
+          Clear All Transactions
         </Button>
       )}
     </Grid>

@@ -9,21 +9,32 @@ import {
   IconButton,
   Slide,
 } from "@material-ui/core";
-import { Delete, MoneyOff } from "@material-ui/icons";
+import { Delete, MoneyOff, Edit } from "@material-ui/icons";
 
 import useStyles from "./styles";
 import { MoneyManagerContext } from "../../../context/transactionContext/context";
+import formatDate from "../../../utils/formatDate";
 
-const List = () => {
-    const classes = useStyles();
+const List = ({ setFormData, setEditMode, editMode }) => {
+  const classes = useStyles();
   const { transactionsState, deleteTransaction } =
     useContext(MoneyManagerContext);
-  
+
+  const setEditForm = (id) => {
+      setEditMode(true)
+          const requiredState = transactionsState.transactions.filter(
+            (t) => t._id === id
+          );
+          const { amount, category, type, date } = requiredState[0];
+
+    setFormData({ amount, category, type, date: formatDate(date) ,id});
+
+  };
   return (
     <MUIList dense={false} className={classes.list}>
       {transactionsState.transactions.map((transaction) => (
         <Slide
-          direction='down'
+          direction="down"
           in
           mountOnEnter
           unmountOnExit
@@ -46,11 +57,12 @@ const List = () => {
               secondary={`$${transaction.amount} - ${transaction.date}`}
             />
             <ListItemSecondaryAction>
-              <IconButton
-                edge='end'
-                aria-label='delete'
-                onClick={() => deleteTransaction(transaction._id)}
-              >
+              <IconButton edge="end" aria-label="edit">
+                <Edit
+                  onClick={() => setEditForm(transaction._id)}
+                />
+              </IconButton>
+              <IconButton onClick={() => deleteTransaction(transaction._id)}>
                 <Delete />
               </IconButton>
             </ListItemSecondaryAction>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useReducer, createContext, useContext } from "react";
 import { ErrorContext } from "../errorContext/ErrorContext";
 import contextReducer from "./contextReducer";
-import { ADD_TRANSACTION, CLEAR_TRANSACTIONS, DELETE_TRANSACTION, FAIL_TRANSACTION, LOAD_TRANSACTION, REQUEST_TRANSACTION } from "./types";
+import { ADD_TRANSACTION, CLEAR_TRANSACTIONS, DELETE_TRANSACTION, FAIL_TRANSACTION, LOAD_TRANSACTION, REQUEST_TRANSACTION, UPDATE_TRANSACTION } from "./types";
 
 const initialState = {
   loading: false,
@@ -41,6 +41,32 @@ export const Provider = ({ children }) => {
        setError(err);
      }
   }
+  const editTransaction = async (id, amount, type, category,date) => {
+    try {
+      dispatch({
+        type: REQUEST_TRANSACTION,
+      });
+      const { data } = await axios.put(
+        `/api/transactions/${id}`,
+        {amount,type,category,date},
+        config
+      );
+      dispatch({
+        type: UPDATE_TRANSACTION,
+        payload: data.data.transactions,
+      });
+    } catch (error) {
+      dispatch({
+        type: FAIL_TRANSACTION,
+      });
+      const err =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      console.log(err)
+      setError(err);
+    }
+  };
   
     
   const clearTransactions =async () =>
@@ -134,6 +160,7 @@ export const Provider = ({ children }) => {
         transactionsState,
         balance,
         getAllTransactions,
+        editTransaction
       }}
     >
       {children}

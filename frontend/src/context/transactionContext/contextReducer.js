@@ -5,6 +5,7 @@ import {
   FAIL_TRANSACTION,
   REQUEST_TRANSACTION,
   LOAD_TRANSACTION,
+  UPDATE_TRANSACTION
 } from "./types";
 
 const contextReducer = (state, action) => {
@@ -18,6 +19,8 @@ const contextReducer = (state, action) => {
     case ADD_TRANSACTION:
       const addedTransactions = [action.payload, ...state.transactions];
       return { loading: false, transactions: addedTransactions };
+    case UPDATE_TRANSACTION:
+      return {...state,loading:false,transactions:action.payload}
     case CLEAR_TRANSACTIONS:
       return { loading: false, transactions: action.payload };
     case FAIL_TRANSACTION:

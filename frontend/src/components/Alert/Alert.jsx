@@ -8,7 +8,7 @@ function ActionAlerts({ severity, message })
    const classes = useStyles()
   const [display, setDisplay] = useState({
     isDisplayed: true,
-    display: { display: "inherit" },
+    display: { display: "flex" },
   });
   const handleDisplay = () => {
 
