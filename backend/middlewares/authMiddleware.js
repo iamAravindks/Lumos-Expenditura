@@ -8,7 +8,17 @@ export const isAuth = expressAsyncHandler(async (req, res, next) => {
   const token = req.cookies.access_token;
   if (token) {
     try {
-      const decodedObj = jwt.verify(token, config.JWT_SECRET);
+      const decodedObj = jwt.verify(token, config.JWT_SECRET, function (err, decoded)
+      {
+        if (err)
+        {
+          res.status(401);
+          next(new Error("Session expired! try to login again"));
+        } else
+        {
+          return decoded
+        }
+      });
       const user = await User.findById(decodedObj.id);
       if (user) {
         req.user = await User.findById(decodedObj.id).select("-password");
