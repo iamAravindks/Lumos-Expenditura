@@ -133,6 +133,77 @@ transactionRouter.delete("/", _authMiddleware.isAuth, (0, _expressAsyncHandler.d
       message: error.message
     });
   }
+})); // @desc Get a particular transaction by an ID
+// @route GET /api/transaction/:id
+// @access PRIVATE
+
+transactionRouter.get("/:id", _authMiddleware.isAuth, (0, _expressAsyncHandler.default)(async (req, res) => {
+  try {
+    const transactions = await _transactionsModel.default.find({
+      user: req.user._id,
+      "transactions._id": req.params.id
+    }, {
+      "transactions.$": 1
+    });
+
+    if (!transactions) {
+      res.json({
+        message: "No transactions found",
+        data: []
+      });
+    } else res.json({
+      data: transactions
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message
+    });
+  }
+})); // @desc update a transaction
+// @route PUT /api/transaction/:id
+// @access private
+
+transactionRouter.put("/:id", _authMiddleware.isAuth, (0, _expressAsyncHandler.default)(async (req, res) => {
+  try {
+    const existedTransactions = await _transactionsModel.default.find({
+      user: req.user._id,
+      "transactions._id": req.params.id
+    }, {
+      "transactions.$": 1
+    });
+
+    if (!existedTransactions) {
+      res.json({
+        message: "No transactions found",
+        data: []
+      });
+    }
+
+    const updatedTransactions = await _transactionsModel.default.updateOne({
+      user: req.user._id,
+      "transactions._id": req.params.id
+    }, {
+      $set: {
+        "transactions.$.amount": req.body.amount || existedTransactions[0].transactions.amount,
+        "transactions.$.type": req.body.type || existedTransactions[0].transactions.type,
+        "transactions.$.category": req.body.category || existedTransactions[0].transactions.category,
+        "transactions.$.date": req.body.date || existedTransactions[0].transactions.date
+      }
+    }, {
+      new: true
+    });
+    const newOne = await _transactionsModel.default.findOne({
+      user: req.user._id
+    });
+
+    if (updatedTransactions) {
+      res.json({
+        data: newOne
+      });
+    }
+  } catch (e) {
+    throw new Error(e);
+  }
 })); // @desc Delete a transaction
 // @route /api/transaction/:id
 // @access Private

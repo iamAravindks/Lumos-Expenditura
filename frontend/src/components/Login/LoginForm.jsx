@@ -67,19 +67,19 @@ const LoginForm = () =>
       {loading && <Loader />}
 
       <Grid container spacing={2} className={classes.LoginForm}>
-        {error && <Alert severity='error' message={error} />}
+        {error && <Alert severity="error" message={error} />}
         <Grid item xs={12} style={{ height: "100px" }}>
           <PersonPin className={classes.PersonPin} />
-          <Typography align='center' variant='h5' gutterBottom>
+          <Typography align="center" variant="h5" gutterBottom>
             Login
           </Typography>
         </Grid>
         <Grid item xs={12} lg={12} className={classes.Inputs}>
           <Grid xs={12} lg={6} item>
             <TextField
-              type='email'
-              label='email'
-              size='medium'
+              type="email"
+              label="email"
+              size="medium"
               error={formError.emailError ? true : false}
               value={email}
               onChange={handleEmail}
@@ -87,7 +87,7 @@ const LoginForm = () =>
               className={classes.Input}
             />
             {formError.emailError && (
-              <Typography align='left' color='error' variant='subtitle2'>
+              <Typography align="left" color="error" variant="subtitle2">
                 {formError.emailError}
               </Typography>
             )}
@@ -100,7 +100,7 @@ const LoginForm = () =>
           >
             <TextField
               type={showPassword ? "text" : "password"}
-              label='Password'
+              label="Password"
               value={password}
               error={formError.passWordError ? true : false}
               onChange={(e) => setPassword(e.target.value)}
@@ -118,8 +118,8 @@ const LoginForm = () =>
 
           <Button
             className={classes.button}
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             fullWidth
             disabled={
               formError.emailError || formError.passWordError ? true : false
@@ -129,16 +129,28 @@ const LoginForm = () =>
             Login
           </Button>
           <Typography
-            align='center'
-            color='primary'
-            variant='subtitle2'
+            align="center"
+            color="textSecondary"
+            variant="subtitle2"
+            gutterBottom
+            style={{
+              marginTop: "7px",
+            }}
+          >
+            Forgot password ?
+            <Link  to="/forgot-password"> Reset your password</Link>
+          </Typography>
+          <Typography
+            align="center"
+            color="primary"
+            variant="subtitle2"
             gutterBottom
             style={{
               marginTop: "7px",
             }}
           >
             Not registered yet?
-            <Link to='/signup'> Create an Account</Link>
+            <Link to="/signup"> Create an Account</Link>
           </Typography>
         </Grid>
       </Grid>
