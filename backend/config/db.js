@@ -5,7 +5,7 @@ const connectDB = async () =>
 {
     try
     {
-        const con = await mongoose.connect(config.MONGODB_LOCALHOST_URL, {
+        const con = await mongoose.connect(config.MONGODB_URL, {
           useUnifiedTopology: true,
           useNewUrlParser: true,
         });
