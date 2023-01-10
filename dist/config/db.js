@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const connectDB = async () => {
   try {
-    const con = await _mongoose.default.connect(_config.default.MONGODB_LOCALHOST_URL, {
+    const con = await _mongoose.default.connect(_config.default.MONGODB_URL, {
       useUnifiedTopology: true,
       useNewUrlParser: true
     });

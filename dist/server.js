@@ -35,7 +35,9 @@ app.use("/api/users", _userRouter.default);
 if (process.env.NODE_ENV === "production") {
   app.use(_express.default.static(_path.default.join(__dirname, '../frontend/build')));
   app.get('*', (req, res) => {
-    res.sendFile(_path.default.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    const filePath = _path.default.join(__dirname, '../frontend/build');
+
+    res.sendFile(_path.default.resolve(filePath, 'index.html'));
   });
 }
 
