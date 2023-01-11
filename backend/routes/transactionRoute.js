@@ -1,7 +1,7 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
-import Transactions from "../models/transactionsModel";
-import { isAuth } from "../middlewares/authMiddleware";
+import Transactions from "../models/transactionsModel.js";
+import { isAuth } from "../middlewares/authMiddleware.js";
 import mongoose from "mongoose";
 const transactionRouter = express.Router();
 

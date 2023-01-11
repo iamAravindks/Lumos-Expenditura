@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "npm run build && node dist/server.js",
     "server": "npx nodemon --watch backend --exec babel-node backend/server.js",
@@ -32,6 +33,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.7",
-    "nodemailer": "^6.7.8"
+    "nodemailer": "^6.7.8",
+    "url": "^0.11.0"
   }
 }

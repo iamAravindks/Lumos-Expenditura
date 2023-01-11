@@ -1,10 +1,10 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import crypto from 'crypto'
-import { isAuth } from "../middlewares/authMiddleware";
-import User from "../models/userModel";
-import generateToken from "../utils/generateToken";
-import sendEmail from "../utils/sendEmail";
+import { isAuth } from "../middlewares/authMiddleware.js";
+import User from "../models/userModel.js";
+import generateToken from "../utils/generateToken.js";
+import sendEmail from "../utils/sendEmail.js";
 const userRouter = express.Router();
 
 // @desc Auth user & get token
