@@ -45,8 +45,8 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#EEE",
-    height: "400px",
-    width: "300px",
+    height: "500px",
+    width: "400px",
     [theme.breakpoints.down("md")]: {
       width: "100%",
       height: "100%",

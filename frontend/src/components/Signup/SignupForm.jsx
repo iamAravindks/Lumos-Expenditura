@@ -80,7 +80,7 @@ const SignupForm = () => {
   };
 
   return (
-    <Grid container spacing={2} className={classes.SignupForm}>
+    <Grid container spacing={3}  className={classes.SignupForm}>
       {loading && <Loader />}
       {serverError && <Alert severity='error' message={serverError} />}
       <Grid item xs={12} style={{ height: "100px" }}>

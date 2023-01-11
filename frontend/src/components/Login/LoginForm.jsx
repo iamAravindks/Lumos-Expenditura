@@ -66,7 +66,7 @@ const LoginForm = () =>
     <>
       {loading && <Loader />}
 
-      <Grid container spacing={2} className={classes.LoginForm}>
+      <Grid container spacing={3} style={{minWidth:"400px"}} className={classes.LoginForm}>
         {error && <Alert severity="error" message={error} />}
         <Grid item xs={12} style={{ height: "100px" }}>
           <PersonPin className={classes.PersonPin} />
